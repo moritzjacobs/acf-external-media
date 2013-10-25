@@ -1,0 +1,63 @@
+.field_type-external_media {
+	min-height: 225px;
+}
+
+.field_type-external_media .no-external-media {
+	display: none;
+}
+
+.field_type-external_media .has-external-media.meta {
+	display: none;
+}
+
+.field_type-external_media .has-external-media.meta.error {
+	font-weight: bold;
+	color: #A82528;
+	width: 187px;
+}
+
+.field_type-external_media .hover {
+	position: absolute;
+	top: 28px;
+	left: 190px;
+}
+
+.field_type-external_media .hover .acf-button-delete {
+	display: none;
+}
+
+
+.field_type-external_media .has-external-media:hover .hover {
+	-webkit-transition-delay:0s;
+	-moz-transition-delay:0s;
+	-o-transition-delay:0s;
+	transition-delay:0s;
+	
+	visibility: visible;
+	opacity: 1;
+}
+
+.field_type-external_media .hover ul {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+.field_type-external_media .hover ul li {
+	margin: 0 0 5px 0;
+}
+
+.acf-external-media-image {
+	display: block;
+	cursor: pointer;
+	width: 200px;
+	height: auto;
+	max-height: 150px;
+	min-height: 110px;
+	
+	background-image: url(../images/add.png);
+	background-size: cover;
+	
+	background-color: #eee;
+	border: 2px solid #ccc;
+}
