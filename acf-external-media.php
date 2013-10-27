@@ -2,7 +2,7 @@
 /*
 Plugin Name: Advanced Custom Fields: External Media Field
 Description: Add YouTube, Vimeo, Soundcloud or external images as embedded assets via ACF.
-Version: 0.0.1
+Version: 0.0.2
 Author: Moritz Jacobs
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,6 +11,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 class acf_field_external_media_plugin
 {
+
+	private $plugin_slug = "acf-external-media";
+	
 	/*
 	*  Construct
 	*
@@ -32,7 +35,9 @@ class acf_field_external_media_plugin
 		// version 4+
 		add_action('acf/register_fields', array($this, 'register_fields'));
 
-
+		require 'lib/plugin-update-checker-master/plugin-update-checker.php';
+		$update_checker = PucFactory::buildUpdateChecker(
+			'http://dyn2.neonpastell.de:443/npwp-plugins/updates/?action=get_metadata&slug='.$this->plugin_slug, __FILE__, $this->plugin_slug);
 	}
 
 
