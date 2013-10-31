@@ -37,7 +37,7 @@ class acf_field_external_media_plugin
 
 		require 'lib/plugin-update-checker-master/plugin-update-checker.php';
 		$update_checker = PucFactory::buildUpdateChecker(
-			'http://dyn2.neonpastell.de:443/npwp-plugins/updates/?action=get_metadata&slug='.$this->plugin_slug, __FILE__, $this->plugin_slug);
+			'http://deviant.local/npwp-plugins/updates/?action=get_metadata&slug='.$this->plugin_slug, __FILE__, $this->plugin_slug);
 	}
 
 
