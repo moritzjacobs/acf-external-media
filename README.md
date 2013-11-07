@@ -3,6 +3,7 @@ acf-external-media
 
 ## YouTube/Vimeo/Souncloud/img field add-on for Advanced Custom Fields
 
+![Screenshot](http://i.imgur.com/u1oL3Xq.png)
 
 ### Description
 
