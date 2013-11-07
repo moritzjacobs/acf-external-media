@@ -1,5 +1,5 @@
 {
-	"name": "neonpastell/acf-external-media",
+	"name": "moritzjacobs/acf-external-media",
 	"type": "wordpress-plugin",
 	"require": {
 		"php": ">=5.3.0"
