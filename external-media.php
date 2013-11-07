@@ -23,7 +23,9 @@ class acf_field_external_media extends acf_field
 		$this->label = __('External Media');
 		$this->category = __("Basic",'acf'); // Basic, Content, Choice, etc
 		$this->defaults = array(
-			"output_type" => "code"
+			"output_type" => "code",
+			"width" => 640,
+			"height" => 390
 		);
 
 
@@ -39,10 +41,11 @@ class acf_field_external_media extends acf_field
 		);
 
 
+		// add ajax call for field validation
 		add_action('wp_ajax_acf_external_media_get_link_data', function() {
-				echo json_encode($this->get_link_data($_POST['url']));
-				die();
-			});
+			echo json_encode($this->get_link_data($_POST['url']));
+			die();
+		});
 
 	}
 
@@ -72,7 +75,7 @@ class acf_field_external_media extends acf_field
 ?>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
-				<label><?php _e("Output", 'acf'); ?></label>
+				<label><?php _e("Output type", 'acf'); ?></label>
 			</td>
 			<td>
 				<?php
@@ -82,10 +85,44 @@ class acf_field_external_media extends acf_field
 				'name'    =>  'fields[' . $key . '][output_type]',
 				'value'   =>  $field['output_type'],
 				'choices' =>  array(
-					'code' => __('Display Code'),
+					'code' => __('HTML Display Code'),
 					'data' => __('Array Data'),
 					'URL' => __('URL')
 				)
+			));
+
+?>
+			</td>
+		</tr>
+		
+		<tr class="field_option field_option_<?php echo $this->name; ?>">
+			<td class="label">
+				<label><?php _e("Display width", 'acf'); ?> (px)</label>
+			</td>
+			<td>
+				<?php
+
+		do_action('acf/create_field', array(
+				'type'    =>  'text',
+				'name'    =>  'fields[' . $key . '][width]',
+				'value'   =>  $field['width'],
+			));
+
+?>
+			</td>
+		</tr>
+		
+		<tr class="field_option field_option_<?php echo $this->name; ?>">
+			<td class="label">
+				<label><?php _e("Display height", 'acf'); ?> (px)</label>
+			</td>
+			<td>
+				<?php
+
+		do_action('acf/create_field', array(
+				'type'    =>  'text',
+				'name'    =>  'fields[' . $key . '][height]',
+				'value'   =>  $field['height'],
 			));
 
 ?>
@@ -138,7 +175,7 @@ class acf_field_external_media extends acf_field
 			$xmlData = simplexml_load_string(@file_get_contents("http://gdata.youtube.com/feeds/api/videos/{$id}?fields=title"));
 
 			// populate data array
-			$title = (string)$xmlData->title;
+			$title = (string) @$xmlData->title;
 			$embed = '<iframe width="'.$w.'" height="'.$h.'" class="youtube-player" type="text/html" src="http://www.youtube.com/embed/'.$id.'" allowfullscreen frameborder="0"></iframe>';
 			$type = "youtube";
 			$normalized = "http://www.youtube.com/watch?v=".$id;
@@ -224,8 +261,9 @@ class acf_field_external_media extends acf_field
 	function create_field( $field )
 	{
 		// load field from db
+
 		if (!empty($field['value'])) {
-			$ld = $this->get_link_data($field['value']);
+			$ld = $this->get_link_data($field['value'], $field['width'], $field['height']);
 			$thumb = $ld['thumb'];
 			$title = $ld['title'];
 			$url = $ld['url'];
@@ -325,7 +363,7 @@ class acf_field_external_media extends acf_field
 	{
 		// ouput filter depending on output choice
 		if($field['output_type'] == "code") {
-			return $this->get_link_data($value)['embed'];
+			return $this->get_link_data($value, $field['width'], $field['height'])['embed'];
 		} else if($field['output_type'] == "data") {
 				return $this->get_link_data($value);
 			} else {
