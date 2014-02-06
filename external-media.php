@@ -363,7 +363,8 @@ class acf_field_external_media extends acf_field
 	{
 		// ouput filter depending on output choice
 		if($field['output_type'] == "code") {
-			return $this->get_link_data($value, $field['width'], $field['height'])['embed'];
+			$ret = $this->get_link_data($value, $field['width'], $field['height']);
+			return $ret['embed'];
 		} else if($field['output_type'] == "data") {
 				return $this->get_link_data($value);
 			} else {
