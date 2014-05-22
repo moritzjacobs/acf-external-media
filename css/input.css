@@ -18,7 +18,7 @@
 
 .field_type-external_media .hover {
 	position: relative;
-	top: -10px;
+	top: -125px;
 	left: 192px;
 	width: 0;
 	height: 0;
@@ -26,6 +26,7 @@
 
 .field_type-external_media .hover .acf-button-delete {
 	display: none;
+
 }
 
 
